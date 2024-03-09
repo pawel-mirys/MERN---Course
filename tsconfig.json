@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "ES6",
+    "target": "ES2022",
+    "module": "ES2022",
     "outDir": "backend/dist",
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
     "allowJs": true
   },
-  "include": ["backend/**/*.ts", "backend/data/products.js"]
+  "include": ["backend/**/*.ts", "backend/**/*.js"]
 }

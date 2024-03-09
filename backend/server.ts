@@ -1,14 +1,14 @@
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
-import products from './data/products.js';
+import products from './data/products/products.js';
 import connectDB from './config/db.js';
 import { ProductType } from './types/types.js';
 
 const productsData: ProductType[] = products as ProductType[];
 
 const port = process.env.PORT;
-connectDB();
+await connectDB();
 const app = express();
 
 app.get('/', (req, res) => {
