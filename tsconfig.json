@@ -2,10 +2,11 @@
   "compilerOptions": {
     "target": "es6",
     "module": "ES6",
-    "outDir": "./dist",
+    "outDir": "backend/dist",
     "strict": true,
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "allowJs": true
   },
-  "include": ["backend/**/*.ts", "backend/data/productsData.js"]
+  "include": ["backend/**/*.ts", "backend/data/products.js"]
 }
