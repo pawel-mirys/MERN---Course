@@ -9,6 +9,7 @@ export type ProductType = {
   countInStock: number;
   rating: number;
   numReviews: number;
+  qty: number;
 };
 
 export type UserType = {
