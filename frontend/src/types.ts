@@ -56,3 +56,8 @@ export type OrderType = {
   isDelivered: boolean;
   deliveredAt: Date;
 };
+
+export type CustomError = {
+  status: number;
+  data: { message: string };
+};

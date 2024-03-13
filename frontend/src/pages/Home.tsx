@@ -1,6 +1,9 @@
 import { Row, Col } from 'react-bootstrap';
 import Product from '@/components/Product';
 import { useGetProductsQuery } from '@/store/apis/productsApi';
+import Loader from '@/components/Loader';
+import Message from '@/components/Message';
+import { CustomError } from '@/types';
 
 const Home = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
@@ -9,12 +12,14 @@ const Home = () => {
     let content: JSX.Element = <></>;
 
     if (isLoading) {
-      content = <h2>fetching data...</h2>;
+      content = <Loader />;
     } else if (error) {
       if ('status' in error) {
         const errMsg =
-          'error' in error ? error.error : JSON.stringify(error.data);
-        content = <h2>{errMsg}</h2>;
+          'error' in error
+            ? error.error
+            : JSON.stringify((error as unknown as CustomError).data.message);
+        content = <Message variant='danger'>{errMsg}</Message>;
       }
     } else {
       content = (

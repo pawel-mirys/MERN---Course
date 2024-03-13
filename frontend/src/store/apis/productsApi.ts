@@ -15,10 +15,22 @@ const productsApi = api.injectEndpoints({
         },
         keepUnusedDataFor: 5,
       }),
+      getProductDetails: builder.query<
+        ProductType,
+        { productId: string | undefined }
+      >({
+        query: ({ productId }) => {
+          return {
+            url: `${PRODUCTS_URL}/${productId}`,
+            method: 'GET',
+          };
+        },
+        keepUnusedDataFor: 5,
+      }),
     };
   },
 });
 
-export const { useGetProductsQuery } = productsApi;
+export const { useGetProductsQuery, useGetProductDetailsQuery } = productsApi;
 
 export { productsApi };
