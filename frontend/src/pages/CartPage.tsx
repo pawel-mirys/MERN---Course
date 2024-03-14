@@ -13,7 +13,7 @@ import Message from '@/components/Message';
 import { useAppDispatch, useAppSelector } from '@/store';
 import React from 'react';
 import { ProductType } from '@/types';
-import { addToCart } from '@/store/slices/cartSlice';
+import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -23,6 +23,14 @@ const CartPage = () => {
 
   const handleAddToCart = async (product: ProductType, qty: number) => {
     dispatch(addToCart({ ...product, qty }));
+  };
+
+  const handleRemoveFromCart = async (product: ProductType) => {
+    dispatch(removeFromCart(product));
+  };
+
+  const handleCheckout = () => {
+    navigate('/login?redirect=/shipping');
   };
 
   const cartItemsToRender = () => {
@@ -63,7 +71,12 @@ const CartPage = () => {
                         </Form.Control>
                       </Col>
                       <Col md={2}>
-                        <Button type='button' variant='white'>
+                        <Button
+                          type='button'
+                          variant='white'
+                          onClick={() => {
+                            handleRemoveFromCart(item);
+                          }}>
                           <FaTrash />
                         </Button>
                       </Col>
@@ -101,9 +114,7 @@ const CartPage = () => {
                 type='button'
                 className='btn-block'
                 disabled={cartItems.length === 0}
-                onClick={() => {
-                  navigate('/');
-                }}>
+                onClick={handleCheckout}>
                 Proceed to checkout
               </Button>
             </ListGroup.Item>
