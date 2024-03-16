@@ -13,12 +13,17 @@ export type ProductType = {
   numReviews: number;
 };
 
+interface UserDocument extends Document {
+  matchPassword: (enteredPassword: string) => Promise<boolean>;
+}
+
 export type UserType = {
+  _id: string;
   name: string;
   email: string;
   password: string;
   isAdmin: boolean;
-};
+} & UserDocument;
 
 export type ReviewType = {
   name: string;

@@ -10,6 +10,10 @@ const port = process.env.PORT;
 await connectDB();
 const app = express();
 
+//body parser md
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/', (req, res) => {
   res.send('API is rinning...');
 });
