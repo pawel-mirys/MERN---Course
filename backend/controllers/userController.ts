@@ -1,9 +1,12 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import { Request, Response } from 'express';
 import asyncHandler from '../middleware/asyncHandler.js';
 import User from '../models/userModel.js';
 import { UserType } from '../types/types.js';
 import { LoginRequestBody } from '../interfaces/userControllersInterfaces.js';
 import { Document } from 'mongoose';
+import jwt from 'jsonwebtoken';
 
 const loginUser = asyncHandler(
   async (
@@ -15,6 +18,24 @@ const loginUser = asyncHandler(
     const user = await User.findOne({ email: email });
 
     if (user && (await user.matchPassword(password))) {
+      const jwtSecret = process.env.JWT_SECRET;
+
+      if (!jwtSecret) {
+        throw new Error('JWT_SECRET env variable is not defined');
+      }
+
+      const token = jwt.sign({ userId: user._id }, jwtSecret, {
+        expiresIn: '30d',
+      });
+
+      //set jwt as http-only cookie
+      res.cookie('jwt', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+        sameSite: 'strict',
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30d
+      });
+
       res.json({
         user: user.toObject(),
       });
