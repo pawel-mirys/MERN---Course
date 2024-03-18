@@ -28,7 +28,7 @@
       "types/*": ["src/@types/*"],
       "assets/*": ["src/assets/*"],
       "store/*": ["src/store/*"],
-      "hooks/*": ["src/hooks/*"]
+      "hooks/*": ["src/urils/*"]
     }
   },
   "include": ["src"],
