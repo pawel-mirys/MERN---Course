@@ -4,15 +4,17 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 
+import routes from './routes';
+import PrivateRoute from '@/components/PrivateRoute';
 import App from '@/App';
 import Home from '@/pages/Home';
-import routes from './routes';
 import ProductPage from '@/pages/ProductPage';
 import CartPage from '@/pages/CartPage';
 import LoginPage from '@/pages/LoginPage';
 import RegisterPage from '@/pages/RegisterPage';
 import ShippingPage from '@/pages/ShippingPage';
-import PrivateRoute from '@/components/PrivateRoute';
+
+import PaymentPage from '@/pages/PaymentPage';
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +26,7 @@ export const Router = createBrowserRouter(
       <Route path={routes.register} element={<RegisterPage />} />
       <Route path='' element={<PrivateRoute />}>
         <Route path={routes.shipping} element={<ShippingPage />} />
+        <Route path={routes.payment} element={<PaymentPage />} />
       </Route>
     </Route>
   )
