@@ -26,6 +26,13 @@ export type ReviewType = {
   user: UserType;
 };
 
+export type ShippingAdressType = {
+  adress: string;
+  city: string;
+  postalCode: string;
+  country: string;
+};
+
 export type OrderType = {
   user: UserType;
   orderItems: {

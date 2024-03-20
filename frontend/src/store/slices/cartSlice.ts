@@ -1,9 +1,11 @@
 import { updateCart } from '@/utils/cartUtils';
-import { ProductType } from '@/types';
+import { ProductType, ShippingAdressType } from '@/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type CartInitialStateType = {
   cartItems: ProductType[];
+  shippingAdress: ShippingAdressType;
+  paymentMethod: string;
   qty: number;
   itemsPrice: number;
   shippingPrice: number;
@@ -13,7 +15,7 @@ export type CartInitialStateType = {
 
 const initialState: CartInitialStateType = localStorage.getItem('cart')
   ? JSON.parse(localStorage.getItem('cart')!)
-  : { cartItems: [] };
+  : { cartItems: [], shippingAdress: {}, paymentMethod: 'PayPal' };
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -38,9 +40,14 @@ const cartSlice = createSlice({
 
       return updateCart(state);
     },
+    saveShippingAdress: (state, action: PayloadAction<ShippingAdressType>) => {
+      state.shippingAdress = action.payload;
+      return updateCart(state);
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, saveShippingAdress } =
+  cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;
