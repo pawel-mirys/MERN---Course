@@ -6,12 +6,3 @@ export interface LoginRequestBody {
   password: string;
 }
 
-export interface AuthRequest extends Request {
-  user?: any;
-}
-
-export interface GetProfileRequstBody extends Request {
-  user?: UserType;
-}
-
-export interface UpdateProfileRequestBody extends GetProfileRequstBody {}

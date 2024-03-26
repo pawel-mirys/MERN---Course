@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Request } from 'express';
 
 export type ProductType = {
   _id: string;
@@ -17,13 +18,13 @@ interface UserDocument extends Document {
   matchPassword: (enteredPassword: string) => Promise<boolean>;
 }
 
-export type UserType = {
+export interface UserType extends UserDocument {
   _id: string;
   name: string;
   email: string;
   password: string;
   isAdmin: boolean;
-} & UserDocument;
+}
 
 export type ReviewType = {
   name: string;
@@ -38,8 +39,10 @@ export type ProductSchemaType = ProductType & {
 };
 
 export type OrderType = {
+  _id: string;
   user: UserType;
   orderItems: {
+    _id: string;
     name: string;
     qty: number;
     image: string;

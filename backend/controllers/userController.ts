@@ -3,12 +3,7 @@ dotenv.config();
 import { Request, Response } from 'express';
 import asyncHandler from '../middleware/asyncHandler.js';
 import User from '../models/userModel.js';
-import { UserType } from '../types/types.js';
-import {
-  GetProfileRequstBody,
-  LoginRequestBody,
-  UpdateProfileRequestBody,
-} from '../interfaces/userInterfaces.js';
+
 import generateToken from '../utils/generateToken.js';
 
 const loginUser = asyncHandler(async (req: Request, res: Response) => {
@@ -67,7 +62,7 @@ const logoutUser = asyncHandler(async (req: Request, res: Response) => {
 
 const getUserProfile = asyncHandler(
   async (
-    req: GetProfileRequstBody,
+    req: Request,
     res: Response<{
       _id: string;
       name: string;
@@ -94,7 +89,7 @@ const getUserProfile = asyncHandler(
 
 const updateUserProfile = asyncHandler(
   async (
-    req: UpdateProfileRequestBody,
+    req: Request,
     res: Response<{
       _id: string;
       name: string;

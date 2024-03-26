@@ -4,12 +4,11 @@ import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import asyncHandler from './asyncHandler.js';
 import User from '../models/userModel.js';
-import { AuthRequest } from '../interfaces/userInterfaces.js';
 
 //Protect routes
 
 const protect = asyncHandler(
-  async (req: AuthRequest, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     const jwtToken = process.env.JWT_SECRET;
 
     let token;
@@ -38,7 +37,7 @@ const protect = asyncHandler(
 
 //admin md
 
-const admin = (req: AuthRequest, res: Response, next: NextFunction) => {
+const admin = (req: Request, res: Response, next: NextFunction) => {
   if (req.user && req.user.isAdmin) {
     next();
   } else {

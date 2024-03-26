@@ -8,5 +8,6 @@
     "moduleResolution": "node",
     "allowJs": true
   },
+  "files": ["backend/interfaces/index.d.ts"],
   "include": ["backend/**/*.ts", "backend/**/*.js"]
 }
