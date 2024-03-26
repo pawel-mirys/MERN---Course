@@ -6,6 +6,7 @@ const routes = {
   register: '/register',
   shipping: '/shipping',
   payment: '/payment',
+  placeOrder: '/placeorder',
 };
 
 export default routes;

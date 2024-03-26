@@ -3,26 +3,26 @@ import { useState } from 'react';
 import FormContainer from '@/components/FormContainer';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { saveShippingAdress } from '@/store/slices/cartSlice';
+import { saveShippingAddress } from '@/store/slices/cartSlice';
 import CheckoutSteps from '@/components/CheckoutSteps';
 
 const ShippingPage = () => {
   const cart = useAppSelector((state) => state.cart);
-  const { shippingAdress } = cart;
+  const { shippingAddress } = cart;
 
-  const [adress, setAdress] = useState(shippingAdress?.adress || '');
-  const [city, setCity] = useState(shippingAdress?.city || '');
+  const [address, setAddress] = useState(shippingAddress?.address || '');
+  const [city, setCity] = useState(shippingAddress?.city || '');
   const [postalCode, setPostalCode] = useState(
-    shippingAdress?.postalCode || ''
+    shippingAddress?.postalCode || ''
   );
-  const [country, setCountry] = useState(shippingAdress?.country || '');
+  const [country, setCountry] = useState(shippingAddress?.country || '');
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(saveShippingAdress({ adress, city, postalCode, country }));
+    dispatch(saveShippingAddress({ address, city, postalCode, country }));
     navigate('/payment');
   };
 
@@ -31,14 +31,14 @@ const ShippingPage = () => {
       <CheckoutSteps step1 step2 />
       <h1>Shipping</h1>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId='adress' className='my-2'>
-          <Form.Label>Adress</Form.Label>
+        <Form.Group controlId='address' className='my-2'>
+          <Form.Label>Address</Form.Label>
           <Form.Control
             type='text'
-            placeholder='Enter Adress'
-            value={adress}
+            placeholder='Enter Address'
+            value={address}
             onChange={(e) => {
-              setAdress(e.target.value);
+              setAddress(e.target.value);
             }}></Form.Control>
         </Form.Group>
         <Form.Group controlId='city' className='my-2'>

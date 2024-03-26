@@ -26,43 +26,34 @@ export type ReviewType = {
   user: UserType;
 };
 
-export type ShippingAdressType = {
-  adress: string;
+export type ShippingAddressType = {
+  address: string;
   city: string;
   postalCode: string;
   country: string;
 };
 
 export type OrderType = {
-  user: UserType;
+  _id: string;
+
   orderItems: {
     name: string;
     qty: number;
     image: string;
     price: number;
-    product: ProductType;
   }[];
-  shippingAdress: {
-    adress: string;
+  shippingAddress: {
+    address: string;
     city: string;
     postalCode: string;
     country: string;
   };
   paymentMethod: string;
-  paymentResult: {
-    id: string;
-    status: string;
-    update_time: string;
-    email_adress: string;
-  };
+
   itemsPrice: number;
   taxPrice: number;
   shippingPrice: number;
   totalPrice: number;
-  isPaid: boolean;
-  paidAt: Date;
-  isDelivered: boolean;
-  deliveredAt: Date;
 };
 
 export type CustomError = {

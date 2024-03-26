@@ -13,13 +13,13 @@ const PaymentPage = () => {
   const navigate = useNavigate();
 
   const cart = useAppSelector((state) => state.cart);
-  const { shippingAdress } = cart;
+  const { shippingAddress } = cart;
 
   useEffect(() => {
-    if (!shippingAdress) {
+    if (!shippingAddress) {
       navigate('/shipping');
     }
-  }, [shippingAdress, navigate]);
+  }, [shippingAddress, navigate]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
