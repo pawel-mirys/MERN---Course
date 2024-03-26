@@ -49,8 +49,8 @@ export type OrderType = {
     price: number;
     product: mongoose.Schema.Types.ObjectId;
   }[];
-  shippingAdress: {
-    adress: string;
+  shippingAddress: {
+    address: string;
     city: string;
     postalCode: string;
     country: string;
@@ -60,7 +60,7 @@ export type OrderType = {
     id: string;
     status: string;
     update_time: string;
-    email_adress: string;
+    email_address: string;
   };
   itemsPrice: number;
   taxPrice: number;

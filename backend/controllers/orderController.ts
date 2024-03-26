@@ -8,7 +8,7 @@ export const addOrderItems = asyncHandler(
   async (req: Request<ParamsDictionary, any, OrderType>, res: Response) => {
     const {
       orderItems,
-      shippingAdress,
+      shippingAddress,
       paymentMethod,
       paymentResult,
       itemsPrice,
@@ -27,7 +27,7 @@ export const addOrderItems = asyncHandler(
           _id: order._id,
         })),
         user: req.user._id,
-        shippingAdress,
+        shippingAddress,
         paymentMethod,
         itemsPrice,
         taxPrice,
