@@ -14,10 +14,19 @@ const ordersApi = api.injectEndpoints({
           };
         },
       }),
+      getOrderDetails: builder.query<OrderType, { orderId: string }>({
+        query: ({ orderId }) => {
+          return {
+            url: `${ORDERS_URL}/${orderId}`,
+            method: 'GET',
+          };
+        },
+        keepUnusedDataFor: 5,
+      }),
     };
   },
 });
 
-export const { useCreateOrderMutation } = ordersApi;
+export const { useCreateOrderMutation, useGetOrderDetailsQuery } = ordersApi;
 
 export { ordersApi };

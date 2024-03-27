@@ -35,8 +35,9 @@ export type ShippingAddressType = {
 
 export type OrderType = {
   _id: string;
-
+  user: UserType;
   orderItems: {
+    _id: string;
     name: string;
     qty: number;
     image: string;
@@ -49,7 +50,10 @@ export type OrderType = {
     country: string;
   };
   paymentMethod: string;
-
+  isDelivered: boolean;
+  deliveredAt: Date;
+  isPaid: boolean;
+  paidAt: Date;
   itemsPrice: number;
   taxPrice: number;
   shippingPrice: number;
