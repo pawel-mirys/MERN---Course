@@ -3,6 +3,7 @@ import { ParamsDictionary } from 'express-serve-static-core';
 import asyncHandler from '../middleware/asyncHandler.js';
 import { OrderType } from '../types/types.js';
 import Order from '../models/orderModel.js';
+import { format } from 'date-fns';
 
 export const addOrderItems = asyncHandler(
   async (req: Request<ParamsDictionary, any, OrderType>, res: Response) => {
@@ -74,7 +75,7 @@ export const updateOrderToPaid = asyncHandler(
     const order = await Order.findById(req.params.id);
     if (order) {
       order.isPaid = true;
-      order.paidAt = Date.now();
+      order.paidAt = format(new Date(), 'yyyy-MM-dd HH:mm');
       order.paymentResult = {
         id: req.body.id,
         status: req.body.status,
