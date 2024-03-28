@@ -53,7 +53,7 @@ export type OrderType = {
   isDelivered: boolean;
   deliveredAt: Date;
   isPaid: boolean;
-  paidAt: Date;
+  paidAt: string;
   itemsPrice: number;
   taxPrice: number;
   shippingPrice: number;

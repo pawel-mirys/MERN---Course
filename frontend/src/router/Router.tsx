@@ -3,7 +3,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
-
 import routes from './routes';
 import PrivateRoute from '@/components/PrivateRoute';
 import App from '@/App';
