@@ -41,11 +41,27 @@ const usersApi = api.injectEndpoints({
           };
         },
       }),
+      profile: builder.mutation<
+        UserType,
+        { _id: string; name: string; email: string; password: string }
+      >({
+        query: (data) => {
+          return {
+            url: `${USERS_URL}/profile`,
+            method: 'PUT',
+            body: data,
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
-  usersApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+  useProfileMutation,
+} = usersApi;
 
 export { usersApi };

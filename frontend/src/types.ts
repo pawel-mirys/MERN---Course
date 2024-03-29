@@ -49,9 +49,10 @@ export type OrderType = {
     postalCode: string;
     country: string;
   };
+  createdAt: string;
   paymentMethod: string;
   isDelivered: boolean;
-  deliveredAt: Date;
+  deliveredAt: string;
   isPaid: boolean;
   paidAt: string;
   itemsPrice: number;

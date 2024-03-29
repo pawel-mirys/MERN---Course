@@ -45,6 +45,15 @@ const ordersApi = api.injectEndpoints({
         },
         keepUnusedDataFor: 5,
       }),
+      getMyOrders: builder.query<OrderType[], void>({
+        query: () => {
+          return {
+            url: `${ORDERS_URL}/mine`,
+            method: 'GET',
+          };
+        },
+        keepUnusedDataFor: 5,
+      }),
     };
   },
 });
@@ -54,6 +63,7 @@ export const {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
   useGetPayPalClitendIdQuery,
+  useGetMyOrdersQuery,
 } = ordersApi;
 
 export { ordersApi };

@@ -8,6 +8,7 @@ const routes = {
   payment: '/payment',
   placeOrder: '/placeorder',
   order: '/order/:id',
+  profile: '/profile',
 };
 
 export default routes;
