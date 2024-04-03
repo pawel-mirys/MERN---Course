@@ -6,6 +6,7 @@ import {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
   useGetPayPalClitendIdQuery,
+  useDeliverOrderMutation,
 } from '@/store/apis/ordersApi';
 import handleError from '@/utils/errorUtils';
 import {
@@ -37,6 +38,9 @@ const OrderPage = () => {
   } = useGetOrderDetailsQuery({ orderId: orderId! });
 
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+
+  const [deliverOrder, { isLoading: loadingDeliver }] =
+    useDeliverOrderMutation();
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
@@ -70,7 +74,7 @@ const OrderPage = () => {
     }
   }, [order, paypal, paypalDispatch, loadingPayPal, errorPayPal]);
 
-  const onApprove = (data: OnApproveData, actions: OnApproveActions) => {
+  const onApprove = (_data: OnApproveData, actions: OnApproveActions) => {
     return actions.order!.capture().then(async (details) => {
       try {
         await payOrder({ orderId: orderId!, details: details });
@@ -86,7 +90,7 @@ const OrderPage = () => {
     toast.error(handleError(error));
   };
 
-  const createOrder = (data: CreateOrderData, actions: CreateOrderActions) => {
+  const createOrder = (_data: CreateOrderData, actions: CreateOrderActions) => {
     const totalPirce = order!.totalPrice.toString();
     return actions.order
       .create({
@@ -103,6 +107,18 @@ const OrderPage = () => {
       .then((orderId) => {
         return orderId;
       });
+  };
+
+  const handleDeliverOrder = async () => {
+    try {
+      if (orderId) {
+        await deliverOrder({ orderId: orderId });
+        refetch();
+        toast.success('Order Delivered');
+      }
+    } catch (error) {
+      toast.error(handleError(error));
+    }
   };
 
   // const onApproveTest = async () => {
@@ -137,9 +153,7 @@ const OrderPage = () => {
                 , {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
-                <Message>
-                  Delivered on {order.deliveredAt.toDateString()}
-                </Message>
+                <Message>Delivered on {order.deliveredAt}</Message>
               ) : (
                 <Message variant='danger'>Not Delivered</Message>
               )}
@@ -226,6 +240,20 @@ const OrderPage = () => {
                 </ListGroup.Item>
               )}
             </ListGroup>
+            {loadingDeliver && <Loader />}
+            {userInfo &&
+              userInfo.isAdmin &&
+              order.isPaid &&
+              !order.isDelivered && (
+                <ListGroup.Item style={{ alignSelf: 'center' }}>
+                  <Button
+                    type='button'
+                    className='btn btn-block m-2'
+                    onClick={handleDeliverOrder}>
+                    Mark As Delivered
+                  </Button>
+                </ListGroup.Item>
+              )}
           </Card>
         </Col>
       </Row>
