@@ -9,7 +9,7 @@ const routes = {
   placeOrder: '/placeorder',
   order: '/order/:id',
   profile: '/profile',
-  orderList: '/admin/orderList',
+  orderList: '/admin/orderlist',
 };
 
 export default routes;

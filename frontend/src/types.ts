@@ -61,6 +61,29 @@ export type OrderType = {
   totalPrice: number;
 };
 
+export type OrderRequestBody = {
+  _id: string;
+  orderItems: {
+    _id: string;
+    name: string;
+    qty: number;
+    image: string;
+    price: number;
+  }[];
+  shippingAddress: {
+    address: string;
+    city: string;
+    postalCode: string;
+    country: string;
+  };
+  paymentMethod: string;
+
+  itemsPrice: number;
+  taxPrice: number;
+  shippingPrice: number;
+  totalPrice: number;
+};
+
 export type CustomError = {
   status: number;
   data: { message: string };

@@ -1,12 +1,12 @@
 import { ORDERS_URL, PAYPAL_URL } from '@/constants';
 import { api } from './api';
-import { OrderType } from '@/types';
+import { OrderRequestBody, OrderType } from '@/types';
 import { OrderResponseBody } from '@paypal/paypal-js';
 
 const ordersApi = api.injectEndpoints({
   endpoints(builder) {
     return {
-      createOrder: builder.mutation<OrderType, OrderType>({
+      createOrder: builder.mutation<OrderType, OrderRequestBody>({
         query: (order) => {
           return {
             url: ORDERS_URL,
@@ -54,6 +54,15 @@ const ordersApi = api.injectEndpoints({
         },
         keepUnusedDataFor: 5,
       }),
+      getOrders: builder.query<OrderType[], void>({
+        query: () => {
+          return {
+            url: `${ORDERS_URL}`,
+            method: 'GET',
+          };
+        },
+        keepUnusedDataFor: 5,
+      }),
     };
   },
 });
@@ -64,6 +73,7 @@ export const {
   usePayOrderMutation,
   useGetPayPalClitendIdQuery,
   useGetMyOrdersQuery,
+  useGetOrdersQuery,
 } = ordersApi;
 
 export { ordersApi };

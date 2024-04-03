@@ -1,5 +1,5 @@
 import { CartInitialStateType } from '@/store/slices/cartSlice';
-import { Draft, produce } from 'immer';
+import { Draft } from 'immer';
 
 type WritableDraft<T> = {
   [K in keyof T]: Draft<T[K]>;
@@ -10,32 +10,23 @@ export const addDecimals = (num: number) => {
 };
 
 export const updateCart = (state: WritableDraft<CartInitialStateType>) => {
-  produce(state, (draftState) => {
-    draftState.itemsPrice = draftState.cartItems.reduce((acc, item) => {
-      return acc + item.price * item.qty;
-    }, 0);
+  const itemsPrice = state.cartItems.reduce(
+    (acc, item) => acc + (item.price * 100 * item.qty) / 100,
+    0
+  );
+  state.itemsPrice = addDecimals(itemsPrice);
 
-    draftState.itemsPrice = addDecimals(draftState.itemsPrice);
+  const shippingPrice = itemsPrice > 100 ? 0 : 10;
+  state.shippingPrice = addDecimals(shippingPrice);
 
-    draftState.shippingPrice = addDecimals(
-      draftState.itemsPrice > 100 ? 0 : 10
-    );
+  const taxPrice = 0.15 * itemsPrice;
+  state.taxPrice = addDecimals(taxPrice);
 
-    draftState.taxPrice = parseFloat(
-      addDecimals(0.15 * draftState.itemsPrice).toFixed(2)
-    );
+  const totalPrice = itemsPrice + shippingPrice + taxPrice;
 
-    draftState.totalPrice = parseFloat(
-      (
-        draftState.itemsPrice +
-        draftState.shippingPrice +
-        draftState.taxPrice
-      ).toFixed(2)
-    );
+  state.totalPrice = addDecimals(totalPrice);
 
-    localStorage.setItem('cart', JSON.stringify(draftState));
-  });
+  localStorage.setItem('cart', JSON.stringify(state));
 
-  // Zwróć stan, ale zmieniony przez Immer
   return state;
 };
