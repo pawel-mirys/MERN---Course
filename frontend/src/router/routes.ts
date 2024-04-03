@@ -10,6 +10,7 @@ const routes = {
   order: '/order/:id',
   profile: '/profile',
   orderList: '/admin/orderlist',
+  productsList: '/admin/productlist',
 };
 
 export default routes;

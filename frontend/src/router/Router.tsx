@@ -18,6 +18,7 @@ import PlaceOrderPage from '@/pages/PlaceOrderPage';
 import OrderPage from '@/pages/OrderPage';
 import ProfilePage from '@/pages/ProfilePage';
 import OrderListPage from '@/pages/admin/OrderListPage';
+import ProductsListPage from '@/pages/admin/ProductsListPage';
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +39,7 @@ export const Router = createBrowserRouter(
 
       <Route path='' element={<AdminRoute />}>
         <Route path={routes.orderList} element={<OrderListPage />} />
+        <Route path={routes.productsList} element={<ProductsListPage />} />
       </Route>
     </Route>
   )
