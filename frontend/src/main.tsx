@@ -10,8 +10,6 @@ import { store } from '@/store';
 
 const CLIENT_ID = import.meta.env.PAYPAL_CLIENT_ID;
 
-console.log(CLIENT_ID);
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
