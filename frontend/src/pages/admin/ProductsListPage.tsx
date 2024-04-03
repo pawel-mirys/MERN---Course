@@ -3,14 +3,32 @@ import { Table, Button, Row, Col } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import Message from '@/components/Message';
 import Loader from '@/components/Loader';
-import { useGetProductsQuery } from '@/store/apis/productsApi';
+import {
+  useGetProductsQuery,
+  useCreateProductMutation,
+} from '@/store/apis/productsApi';
 import handleError from '@/utils/errorUtils';
+import { toast } from 'react-toastify';
 
 const ProductsListPage = () => {
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+
+  const [createProduct, { isLoading: loadingCreate }] =
+    useCreateProductMutation();
 
   const handleDeleteProduct = (productId: string) => {
     console.log('delete', productId);
+  };
+
+  const handleCreateProduct = async () => {
+    if (window.confirm('Are you sure you want to create a new product?')) {
+      try {
+        await createProduct();
+        refetch();
+      } catch (error) {
+        toast.error(handleError(error));
+      }
+    }
   };
 
   return (
@@ -18,11 +36,14 @@ const ProductsListPage = () => {
       <Row>
         <Col className='align-items-center'>Products</Col>
         <Col className='text-end'>
-          <Button className='btn-sm m-3 text-center'>
+          <Button
+            className='btn-sm m-3 text-center'
+            onClick={handleCreateProduct}>
             <FaEdit /> Create Product
           </Button>
         </Col>
       </Row>
+      {loadingCreate && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (
