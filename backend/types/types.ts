@@ -69,5 +69,5 @@ export type OrderType = {
   isPaid: boolean;
   paidAt: string;
   isDelivered: boolean;
-  deliveredAt: Date;
+  deliveredAt: string;
 };
